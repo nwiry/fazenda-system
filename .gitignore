@@ -16,3 +16,4 @@ error*
 */error*
 .user*
 .htaccess
+.env
