@@ -15,6 +15,24 @@ class Cattle extends Model
      * @param \Illuminate\Http\Request $request Obtem as requisições do HTTP para tratamento
      * @return array Retorna um array com o resultado da ação
      */
+    public static function edit(Request $request)
+    {
+        try {
+            DB::table('farm_cattle')->where('cattle_id')->update([
+                'milk' => $request->input('cattle_milk'),
+                'feed' => $request->input('cattle_feed'),
+                'weight' => $request->input('cattle_weight'),
+            ]);
+            return ['status' => 'success'];
+        } catch (\Illuminate\Database\QueryException $e) {
+            return ['status' => 'warning', 'response' => $e->getMessage()];
+        }
+    }
+
+    /**
+     * @param \Illuminate\Http\Request $request Obtem as requisições do HTTP para tratamento
+     * @return array Retorna um array com o resultado da ação
+     */
     public static function register(Request $request): array
     {
         try {
