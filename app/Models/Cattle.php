@@ -85,6 +85,7 @@ class Cattle extends Model
                 ->get();
             foreach ($slaughters as $key => $value) {
                 $slaughters[$key]->full_date = $slaughters[$key]->birth_month . '/' . $slaughters[$key]->birth_year;
+                $slaughters[$key]->actions = '<button class="btn btn-danger" onclick="slaughter(this, ' . $slaughters[$key]->id . ', \'' . $slaughters[$key]->code . '\')">Enviar para abate</button>';
             }
             return [
                 'draw' => 1,
