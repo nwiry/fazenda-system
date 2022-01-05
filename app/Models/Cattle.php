@@ -51,6 +51,11 @@ class Cattle extends Model
     {
         try {
             $list = DB::table('farm_cattle')->get();
+            foreach ($list as $key => $value) {
+                $list[$key]->full_date = $list[$key]->birth_month . '/' . $list[$key]->birth_year;
+                $list[$key]->actions = '<button class="btn btn-primary" style="margin-right: 5px;" onclick="(window.location.href=\'/edit_cattle?cattle_id=' . $list[$key]->id . '\')">Editar</button>
+                <button class="btn btn-danger" onclick="slaughter(this, ' . $list[$key]->id . ', \'' . $list[$key]->code . '\')">Enviar para abate</button>';
+            }
             return [
                 'draw' => 1,
                 'recordsTotal' => $list->count(),
