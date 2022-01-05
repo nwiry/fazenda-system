@@ -16,6 +16,20 @@ class Cattle extends Model
      * @param \Illuminate\Http\Request $request Obtem as requisições do HTTP para tratamento
      * @return array Retorna um array com o resultado da ação
      */
+    public static function del_cattle(Request $request)
+    {
+        try {
+            DB::table('farm_cattle')->where('id', '=', $request->input('cattle_id'))->delete();
+            return ['status' => 'success'];
+        } catch (\Illuminate\Database\QueryException $e) {
+            return ['status' => 'warning', 'response' => $e->getMessage()];
+        }
+    }
+
+    /**
+     * @param \Illuminate\Http\Request $request Obtem as requisições do HTTP para tratamento
+     * @return array Retorna um array com o resultado da ação
+     */
     public static function edit(Request $request)
     {
         try {
@@ -66,6 +80,22 @@ class Cattle extends Model
             return ['status' => 'success'];
         } catch (\Illuminate\Database\QueryException $e) {
             return ['status' => 'warning', 'response' => $e->getMessage()];
+        }
+    }
+
+    /**
+     * @return array|\Exception Retorna um array com o resultado da ação retorna uma exceção caso haja algum problema com o banco de dados
+     */
+    public static function slaughter(Request $request)
+    {
+        try {
+            DB::table('farm_cattle_slaughter')->insert([
+                'json_data' => json_encode(self::visualization($request)[0])
+            ]);
+            self::del_cattle($request);
+            return ['status' => 'success'];
+        } catch (\Illuminate\Database\QueryException $th) {
+            throw new Exception($th->getMessage(), 500);
         }
     }
 
