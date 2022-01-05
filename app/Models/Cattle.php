@@ -86,6 +86,7 @@ class Cattle extends Model
                 ->get();
             foreach ($slaughters as $key => $value) {
                 if (date('Y') - $slaughters[$key]->birth_year < 5) unset($slaughters[$key]);
+                $slaughters[$key]->full_date = $slaughters[$key]->birth_month . '/' . $slaughters[$key]->birth_year;
             }
             return [
                 'draw' => 1,
