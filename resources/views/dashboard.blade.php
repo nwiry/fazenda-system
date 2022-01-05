@@ -150,7 +150,7 @@ function slaughter(btn, cattle_id, cattle_code) {
             dataType: "json",
             success: function(data) {
                 if (data.status == 'success') {
-                    btnSubmit.innerHTML = 'Redirecionando...';
+                    btn.innerHTML = 'Recarregando...';
                     swal({
                             title: 'Operação bem-sucedida!',
                             text: 'O animal ' + cattle_code + ' foi enviado para abate!',
