@@ -16,4 +16,9 @@ class FarmPages extends Controller
     {
         return view('new_cattle');
     }
+
+    public static function list_cattle()
+    {
+        return view('list_cattle');
+    }
 }
