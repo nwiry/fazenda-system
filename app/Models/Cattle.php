@@ -60,7 +60,8 @@ class Cattle extends Model
                 'milk' => $request->input('cattle_milk'),
                 'feed' => $request->input('cattle_feed'),
                 'weight' => $request->input('cattle_weight'),
-                'birthday' => $request->input('cattle_birthday'),
+                'birth_month' => $request->input('cattle_birth_month'),
+                'birth_year' => $request->input('cattle_birth_year'),
             ]);
             return ['status' => 'success'];
         } catch (\Illuminate\Database\QueryException $e) {
