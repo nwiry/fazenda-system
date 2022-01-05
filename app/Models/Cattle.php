@@ -67,4 +67,17 @@ class Cattle extends Model
             return ['status' => 'warning', 'response' => $e->getMessage()];
         }
     }
+
+    /**
+     * @param \Illuminate\Http\Request $request Obtem as requisições do HTTP para tratamento
+     * @return object|\Exception Retorna um objeto com o resultado ou uma exceção caso haja problema com o banco de dados
+     */
+    public static function visualization(Request $request)
+    {
+        try {
+            return DB::table('farm_cattle')->where('id', '=', $request->input('cattle_id'))->get();
+        } catch (\Illuminate\Database\QueryException $th) {
+            throw new Exception($th->getMessage(), 500);
+        }
+    }
 }
