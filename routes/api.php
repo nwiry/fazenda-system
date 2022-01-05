@@ -35,4 +35,8 @@ Route::prefix('v1')->group(function () {
      * @api /api/v1/register_cattle - Chama a função para cadastrar o gado retornando a resposta da execução
      */
     Route::post('/register_cattle', [Cattle::class, 'register']);
+    /**
+     * @api /api/v1/slaughter_cattle - Chama a função para enviar o gado para abate retornando a resposta da execução
+     */
+    Route::post('/slaughter_cattle', [Cattle::class, 'slaughter']);
 });
