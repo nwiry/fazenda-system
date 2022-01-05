@@ -100,6 +100,23 @@ class Cattle extends Model
     }
 
     /**
+     * @return array|\Exception Retorna o número da contagem de tabelas por animal ou retorna uma exceção caso haja algum problema com o banco de dados
+     */
+    public static function sum_cattles()
+    {
+        try {
+            $cattle = DB::table('farm_cattle')->get();
+            return [
+                'num_milk' => $cattle->sum('milk'),
+                'num_feed' => $cattle->sum('feed'),
+                'slaughters' => DB::table('farm_cattle_slaughter')->get()->count()
+            ];
+        } catch (\Illuminate\Database\QueryException $th) {
+            throw new Exception($th->getMessage(), 500);
+        }
+    }
+
+    /**
      * @param \Illuminate\Http\Request $request Obtem as requisições do HTTP para tratamento
      * @return object|\Exception Retorna um objeto com o resultado ou uma exceção caso haja problema com o banco de dados
      */
