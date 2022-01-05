@@ -70,6 +70,35 @@ class Cattle extends Model
     }
 
     /**
+     * @return array|\Exception Retorna os animais disponíveis para abate, seguindo as condições:
+     * (Possui mais de 5 anos de idade, produz menos de 40l de leite, produz menos de 70l de leite e ingere mais de 50kg de ração por dia, possui peso maior que 18@).
+     * Ou retorna uma exceção caso haja algum problema com o banco de dados
+     */
+    public static function slaughters()
+    {
+        try {
+            $slaughters = DB::table('farm_cattle')
+                ->where('birth_month', '=', date('m'))
+                ->whereRaw('? - birth_year >= 5', [date('Y')])
+                ->orWhere('milk', '<', 40)
+                ->orWhereRaw('milk < 70 and feed > 50')
+                ->orWhere('weight', '>', '270')
+                ->get();
+            foreach ($slaughters as $key => $value) {
+                if (date('Y') - $slaughters[$key]->birth_year < 5) unset($slaughters[$key]);
+            }
+            return [
+                'draw' => 1,
+                'recordsTotal' => $slaughters->count(),
+                'recordsFiltered' => $slaughters->count(),
+                'data' => $slaughters
+            ];
+        } catch (\Illuminate\Database\QueryException $th) {
+            throw new Exception($th->getMessage(), 500);
+        }
+    }
+
+    /**
      * @param \Illuminate\Http\Request $request Obtem as requisições do HTTP para tratamento
      * @return object|\Exception Retorna um objeto com o resultado ou uma exceção caso haja problema com o banco de dados
      */
