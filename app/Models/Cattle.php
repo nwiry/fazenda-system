@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Exception;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
@@ -26,6 +27,24 @@ class Cattle extends Model
             return ['status' => 'success'];
         } catch (\Illuminate\Database\QueryException $e) {
             return ['status' => 'warning', 'response' => $e->getMessage()];
+        }
+    }
+
+    /**
+     * @return array|\Exception Retorna um array com os dados ou uma exceção caso haja problema com o banco de dados
+     */
+    public static function list()
+    {
+        try {
+            $list = DB::table('farm_cattle')->get();
+            return [
+                'draw' => 1,
+                'recordsTotal' => $list->count(),
+                'recordsFiltered' => $list->count(),
+                'data' => $list
+            ];
+        } catch (\Illuminate\Database\QueryException $th) {
+            throw new Exception($th->getMessage(), 500);
         }
     }
 
