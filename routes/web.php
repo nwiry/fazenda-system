@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\FarmPages;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -12,3 +13,6 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
+
+// Página Inicial
+Route::any('/', [FarmPages::class, 'dashboard']);
