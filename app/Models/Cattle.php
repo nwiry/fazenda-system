@@ -78,14 +78,12 @@ class Cattle extends Model
     {
         try {
             $slaughters = DB::table('farm_cattle')
-                ->where('birth_month', '=', date('m'))
                 ->whereRaw('? - birth_year >= 5', [date('Y')])
                 ->orWhere('milk', '<', 40)
                 ->orWhereRaw('milk < 70 and feed > 50')
                 ->orWhere('weight', '>', '270')
                 ->get();
             foreach ($slaughters as $key => $value) {
-                if (date('Y') - $slaughters[$key]->birth_year < 5) unset($slaughters[$key]);
                 $slaughters[$key]->full_date = $slaughters[$key]->birth_month . '/' . $slaughters[$key]->birth_year;
             }
             return [
