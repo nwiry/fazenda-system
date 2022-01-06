@@ -68,6 +68,29 @@ class Cattle extends Model
     }
 
     /**
+     * @return array|\Exception Retorna um array com os dados ou uma exceção caso haja problema com o banco de dados
+     */
+    public static function list_slaughters()
+    {
+        try {
+            $list = DB::table('farm_cattle_slaughter')->get();
+            foreach ($list as $key => $value) {
+                $oldData = json_decode($list[$key]->json_data);
+                $oldData->full_date = $oldData->birth_month . '/' . $oldData->birth_year;
+                $data[] = $oldData;
+            }
+            return [
+                'draw' => 1,
+                'recordsTotal' => $list->count(),
+                'recordsFiltered' => $list->count(),
+                'data' => $data
+            ];
+        } catch (\Illuminate\Database\QueryException $th) {
+            throw new Exception($th->getMessage(), 500);
+        }
+    }
+
+    /**
      * @param \Illuminate\Http\Request $request Obtem as requisições do HTTP para tratamento
      * @return array Retorna um array com o resultado da ação
      */
