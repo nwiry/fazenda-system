@@ -33,7 +33,7 @@ class Cattle extends Model
     public static function edit(Request $request)
     {
         try {
-            DB::table('farm_cattle')->where('cattle_id', '=', $request->input('cattle_id'))->update([
+            DB::table('farm_cattle')->where('id', '=', $request->input('cattle_id'))->update([
                 'milk' => $request->input('cattle_milk'),
                 'feed' => $request->input('cattle_feed'),
                 'weight' => $request->input('cattle_weight'),
