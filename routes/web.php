@@ -20,3 +20,5 @@ Route::any('/', [FarmPages::class, 'dashboard']);
 Route::any('/new_cattle', [FarmPages::class, 'new_cattle']);
 // Listagem de Animais
 Route::any('/list_cattle', [FarmPages::class, 'list_cattle']);
+// Listagem de Animais Abatidos
+Route::any('/list_slaughters', [FarmPages::class, 'list_slaughters']);

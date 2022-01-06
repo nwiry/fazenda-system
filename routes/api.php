@@ -28,6 +28,10 @@ Route::prefix('v1')->group(function () {
      */
     Route::get('/list_cattle', [Cattle::class, 'list']);
     /**
+     * @api /api/v1/list_slaughters - Chama a função para listar os animais que foram abatidos retornando uma lista com os dados
+     */
+    Route::get('/list_cattle_slaughters', [Cattle::class, 'list_slaughters']);
+    /**
      * @api /api/v1/list_slaughters - Chama a função para listar os animais disponíeis para abate retornando uma lista com os dados
      */
     Route::get('/list_slaughters', [Cattle::class, 'slaughters']);
