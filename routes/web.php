@@ -18,3 +18,5 @@ use Illuminate\Support\Facades\Route;
 Route::any('/', [FarmPages::class, 'dashboard']);
 // Cadastro de Animal
 Route::any('/new_cattle', [FarmPages::class, 'new_cattle']);
+// Listagem de Animais
+Route::any('/list_cattle', [FarmPages::class, 'list_cattle']);
