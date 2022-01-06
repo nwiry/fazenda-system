@@ -112,6 +112,21 @@ class Cattle extends Model
     }
 
     /**
+     * @param \Illuminate\Http\Request $request Obtem as requisições do HTTP para tratamento
+     * @param string $search Tipo de busca
+     * @return array|\Exception Retorna um array com o resultado da requisição ou uma exceçãoi caso haja algum problema com o banco de dados
+     */
+    public static function search(Request $request, string $search = 'id')
+    {
+        try {
+            $search = DB::table('farm_cattle')->where($search, '=', $request->input('cattle_id'))->get();
+            return isset($search[0]) ? ['status' => true, 'data' => $search[0]] : ['status' => false];
+        } catch (\Throwable $th) {
+            throw new Exception($th->getMessage(), 500);
+        }
+    }
+
+    /**
      * @return array|\Exception Retorna um array com o resultado da ação retorna uma exceção caso haja algum problema com o banco de dados
      */
     public static function slaughter(Request $request)
