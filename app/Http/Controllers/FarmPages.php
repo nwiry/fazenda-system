@@ -21,4 +21,9 @@ class FarmPages extends Controller
     {
         return view('list_cattle');
     }
+
+    public static function list_slaughters()
+    {
+        return view('list_slaughters');
+    }
 }
