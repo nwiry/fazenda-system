@@ -15,4 +15,13 @@ class FarmPages extends AbstractController
     {
         return $this->render('dashboard.html.twig');
     }
+
+    /**
+     * @Route("/new_cattle", name="new_cattle")
+     */
+    public function new_cattle(): Response
+    {
+        return $this->render('new_cattle.html.twig');
+    }
+
 }
