@@ -24,4 +24,20 @@ class FarmPages extends AbstractController
         return $this->render('new_cattle.html.twig');
     }
 
+    /**
+     * @Route("/list_cattle", name="list_cattle")
+     */
+    public function list_cattle(): Response
+    {
+        return $this->render('list_cattle.html.twig');
+    }
+
+    /**
+     * @Route("/list_slaughters", name="list_slaughters")
+     */
+    public function list_slaughters(): Response
+    {
+        return $this->render('list_slaughters.html.twig');
+    }
+
 }
